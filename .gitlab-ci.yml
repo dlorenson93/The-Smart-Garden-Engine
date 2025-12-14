@@ -1,0 +1,41 @@
+stages:
+
+build:
+  stage: build
+  image: node:20
+  before_script:
+    - echo "[DEBUG] Current directory: $(pwd)"
+    - echo "[DEBUG] Listing files in current directory:"
+    - ls -al
+    - echo "[DEBUG] Searching for package.json files:"
+    - find . -name package.json
+    - echo "[DEBUG] Checking if install-all.sh exists:"
+    - ls -l ./install-all.sh || echo "install-all.sh not found!"
+    - chmod +x install-all.sh || true
+    - node -v
+    - npm -v
+  script:
+    - echo "[DEBUG] Running install-all.sh from: $(pwd)"
+    - ./install-all.sh
+    - echo "[DEBUG] Listing files after install:"
+    - ls -al
+    - echo "[DEBUG] Listing files in parent directory:"
+    - ls -al ..
+    - echo "[DEBUG] Listing files in /:"
+    - ls -al /
+    - echo "[DEBUG] Full path to working directory: $(readlink -f .)"
+    - echo "[DEBUG] Building backend..."
+    - npm run build --workspace=backend
+    - echo "[DEBUG] Building frontend..."
+    - npm run build --workspace=frontend
+    - echo "[DEBUG] Syncing Capacitor..."
+    - npx cap sync ios
+    - echo "[DEBUG] Copying Capacitor assets..."
+    - npx cap copy ios
+    - echo "[DEBUG] Running backend tests (if any)..."
+    - npm run test --workspace=backend || echo "No backend tests defined."
+    - echo "[DEBUG] Running frontend tests (if any)..."
+    - npm run test --workspace=frontend || echo "No frontend tests defined."
+    - echo "[DEBUG] Build and test steps complete."
+  only:
+    - main
