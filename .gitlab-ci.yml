@@ -15,6 +15,9 @@ build:
     - node -v
     - npm -v
   script:
+    - cd "$CI_PROJECT_DIR" || cd /Users/ionic-cloud-team/builds/dlorenson93/The-Smart-Garden-Engine || cd /builds/dlorenson93/The-Smart-Garden-Engine || true
+    - echo "[DEBUG] Now in: $(pwd)"
+    - ls -al
     - echo "[DEBUG] Running install-all.sh from: $(pwd)"
     - ./install-all.sh
     - echo "[DEBUG] Listing files after install:"
