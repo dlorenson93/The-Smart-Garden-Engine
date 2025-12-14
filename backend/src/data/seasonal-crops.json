@@ -1,0 +1,59 @@
+{
+  "comment": "Seasonal planting recommendations by USDA zone and month",
+  "recommendations": {
+    "5a": {
+      "3": ["lettuce", "peas", "spinach", "kale"],
+      "4": ["lettuce", "peas", "spinach", "broccoli", "cabbage"],
+      "5": ["tomatoes", "peppers", "beans", "cucumbers", "squash"],
+      "6": ["tomatoes", "peppers", "beans", "cucumbers", "squash"],
+      "7": ["beans", "cucumbers", "squash", "corn"],
+      "8": ["beans", "carrots", "beets", "lettuce"],
+      "9": ["lettuce", "spinach", "kale", "broccoli"],
+      "10": ["lettuce", "spinach", "kale", "peas"]
+    },
+    "6a": {
+      "1": ["lettuce", "spinach", "kale"],
+      "2": ["lettuce", "peas", "spinach", "kale"],
+      "3": ["lettuce", "peas", "spinach", "kale", "broccoli"],
+      "4": ["lettuce", "peas", "spinach", "broccoli", "tomatoes"],
+      "5": ["tomatoes", "peppers", "beans", "cucumbers", "squash"],
+      "6": ["peppers", "beans", "cucumbers", "squash", "corn"],
+      "7": ["beans", "cucumbers", "squash", "corn"],
+      "8": ["beans", "carrots", "beets", "lettuce"],
+      "9": ["lettuce", "spinach", "kale", "broccoli"],
+      "10": ["lettuce", "spinach", "kale", "peas"],
+      "11": ["lettuce", "spinach", "kale"],
+      "12": ["lettuce", "spinach", "kale"]
+    },
+    "7a": {
+      "3": ["lettuce", "peas", "spinach", "kale", "broccoli"],
+      "4": ["tomatoes", "peppers", "lettuce", "peas", "broccoli"],
+      "5": ["tomatoes", "peppers", "beans", "cucumbers", "squash"],
+      "6": ["peppers", "beans", "cucumbers", "squash", "corn"],
+      "7": ["beans", "cucumbers", "squash", "corn"],
+      "8": ["beans", "carrots", "beets", "lettuce", "tomatoes"],
+      "9": ["lettuce", "spinach", "kale", "broccoli", "carrots"],
+      "10": ["lettuce", "spinach", "kale", "peas", "broccoli"]
+    },
+    "8a": {
+      "2": ["lettuce", "peas", "spinach", "kale"],
+      "3": ["tomatoes", "peppers", "lettuce", "broccoli"],
+      "4": ["tomatoes", "peppers", "beans", "cucumbers", "squash"],
+      "5": ["peppers", "beans", "cucumbers", "squash", "corn"],
+      "6": ["beans", "cucumbers", "squash", "corn"],
+      "7": ["beans", "cucumbers", "squash"],
+      "8": ["beans", "carrots", "beets", "lettuce", "tomatoes"],
+      "9": ["lettuce", "spinach", "kale", "broccoli", "tomatoes"],
+      "10": ["lettuce", "spinach", "kale", "peas", "broccoli"]
+    },
+    "9a": {
+      "1": ["lettuce", "peas", "spinach", "kale", "broccoli"],
+      "2": ["tomatoes", "peppers", "lettuce", "broccoli"],
+      "3": ["tomatoes", "peppers", "beans", "cucumbers", "squash"],
+      "9": ["lettuce", "spinach", "kale", "broccoli", "tomatoes"],
+      "10": ["tomatoes", "peppers", "lettuce", "spinach", "kale"],
+      "11": ["lettuce", "spinach", "kale", "peas", "broccoli"],
+      "12": ["lettuce", "peas", "spinach", "kale"]
+    }
+  }
+}

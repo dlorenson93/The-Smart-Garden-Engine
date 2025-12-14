@@ -1,0 +1,320 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String         @id @default(uuid())
+  email               String         @unique
+  passwordHash        String         @map("password_hash")
+  onboardingCompleted Boolean        @default(false) @map("onboarding_completed")
+  createdAt           DateTime       @default(now()) @map("created_at")
+  updatedAt           DateTime       @updatedAt @map("updated_at")
+  
+  profile       GrowerProfile?
+  gardens       Garden[]
+  plantings     Planting[]
+  tasks         Task[]
+  harvestLogs   HarvestLog[]
+  aiChats       AIChat[]
+  photos        Photo[]
+  seeds         Seed[]
+  passwordResets PasswordReset[]
+
+  @@map("users")
+}
+
+model GrowerProfile {
+  id              String   @id @default(uuid())
+  userId          String   @unique @map("user_id")
+  name            String
+  location        String
+  climateZone     String?  @map("climate_zone")     // USDA hardiness zone (e.g., "7a", "9b")
+  latitude        Float?
+  longitude       Float?
+  postalCode      String?  @map("postal_code")
+  usdaZone        String?  @map("usda_zone")
+  firstFrostDate  String?  @map("first_frost_date")
+  lastFrostDate   String?  @map("last_frost_date")
+  experienceLevel String   @map("experience_level") // "beginner" | "intermediate" | "advanced"
+  gardenType      String   @map("garden_type")      // "balcony" | "backyard" | "small_farm"
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("grower_profiles")
+}
+
+model Garden {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  name        String
+  description String?
+  width       Float?   // Garden width in feet for layout
+  height      Float?   // Garden height in feet for layout
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  beds      Bed[]
+  plantings Planting[]
+  photos    Photo[]
+
+  @@map("gardens")
+}
+
+model Bed {
+  id          String   @id @default(uuid())
+  gardenId    String   @map("garden_id")
+  name        String
+  length      Float
+  width       Float
+  positionX   Float?   @map("position_x")   // X coordinate in garden layout
+  positionY   Float?   @map("position_y")   // Y coordinate in garden layout
+  rotation    Float?   @default(0)          // Rotation angle in degrees
+  sunExposure String   @map("sun_exposure") // "full" | "partial" | "shade"
+  sunHours    Float?   @map("sun_hours")    // Hours of direct sun per day
+  notes       String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  garden    Garden     @relation(fields: [gardenId], references: [id], onDelete: Cascade)
+  plantings Planting[]
+
+  @@map("beds")
+}
+
+model Crop {
+  id                   String   @id @default(uuid())
+  name                 String
+  category             String   // "vegetable" | "herb" | "fruit" | "flower"
+  sunRequirement       String   @map("sun_requirement") // "full" | "partial" | "shade"
+  daysToMaturity       Int      @map("days_to_maturity")
+  daysToGermination    Int?     @map("days_to_germination")
+  spacingInRow         Float?   @map("spacing_in_row")
+  spacingBetweenRows   Float?   @map("spacing_between_rows")
+  difficulty           String   // "easy" | "medium" | "hard"
+  minHardinessZone     Int?     @map("min_hardiness_zone")  // Minimum USDA zone (e.g., 3 for zone 3)
+  maxHardinessZone     Int?     @map("max_hardiness_zone")  // Maximum USDA zone (e.g., 10 for zone 10)
+  frostTolerant        Boolean  @default(false) @map("frost_tolerant")
+  companions           String?  // Comma-separated crop names that grow well together
+  avoid                String?  // Comma-separated crop names to avoid planting nearby
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+  
+  plantings Planting[]
+
+  @@map("crops")
+}
+
+model Planting {
+  id                   String   @id @default(uuid())
+  userId               String   @map("user_id")
+  gardenId             String   @map("garden_id")
+  bedId                String   @map("bed_id")
+  cropId               String   @map("crop_id")
+  variety              String?  // e.g., "Cherry", "Beefsteak", "Roma" for tomatoes
+  plantingDate         DateTime @map("planting_date")
+  quantity             Int
+  expectedHarvestStart DateTime @map("expected_harvest_start")
+  expectedHarvestEnd   DateTime @map("expected_harvest_end")
+  healthStatus         String   @default("healthy") @map("health_status") // "healthy" | "needs_water" | "needs_fertilizing" | "stressed"
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+  
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  garden      Garden       @relation(fields: [gardenId], references: [id], onDelete: Cascade)
+  bed         Bed          @relation(fields: [bedId], references: [id], onDelete: Cascade)
+  crop        Crop         @relation(fields: [cropId], references: [id], onDelete: Cascade)
+  tasks       Task[]
+  harvestLogs HarvestLog[]
+  photos      Photo[]
+
+  @@map("plantings")
+}
+
+model Task {
+  id          String    @id @default(uuid())
+  userId      String    @map("user_id")
+  plantingId  String    @map("planting_id")
+  type        String    // "water" | "fertilize" | "prune" | "general"
+  title       String
+  description String?
+  dueDate     DateTime  @map("due_date")
+  completed   Boolean   @default(false)
+  completedAt DateTime? @map("completed_at")
+  skippedByWeather Boolean @default(false) @map("skipped_by_weather")
+  weatherReason String?  @map("weather_reason")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planting Planting @relation(fields: [plantingId], references: [id], onDelete: Cascade)
+
+  @@map("tasks")
+}
+
+model HarvestLog {
+  id             String   @id @default(uuid())
+  userId         String   @map("user_id")
+  plantingId     String   @map("planting_id")
+  date           DateTime
+  amount         Float
+  units          String   // "lbs" | "kg" | "pieces"
+  notes          String?
+  surplusFlag    Boolean  @default(false) @map("surplus_flag")
+  surplusAmount  Float?   @map("surplus_amount")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planting Planting @relation(fields: [plantingId], references: [id], onDelete: Cascade)
+
+  @@map("harvest_logs")
+}
+
+model IntegrationConfig {
+  id                           String   @id @default(uuid())
+  externalMarketplaceEnabled   Boolean  @default(false) @map("external_marketplace_enabled")
+  createdAt                    DateTime @default(now()) @map("created_at")
+  updatedAt                    DateTime @updatedAt @map("updated_at")
+
+  @@map("integration_configs")
+}
+
+model AIChat {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  question  String
+  response  String
+  context   String?
+  scopeType String   @default("global") @map("scope_type")
+  scopeId   String?  @map("scope_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, scopeType, scopeId])
+  @@map("ai_chats")
+}
+
+model Photo {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  plantingId  String?  @map("planting_id")
+  gardenId    String?  @map("garden_id")
+  url         String   // Base64 data URL or cloud storage URL
+  caption     String?
+  type        String   // "progress" | "harvest" | "problem" | "general"
+  createdAt   DateTime @default(now()) @map("created_at")
+  
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planting Planting? @relation(fields: [plantingId], references: [id], onDelete: Cascade)
+  garden   Garden?   @relation(fields: [gardenId], references: [id], onDelete: Cascade)
+
+  @@map("photos")
+}
+
+model Seed {
+  id              String    @id @default(uuid())
+  userId          String    @map("user_id")
+  cropName        String    @map("crop_name")
+  variety         String?
+  quantity        Int
+  unit            String    @default("packets") // "packets" | "seeds" | "grams" | "oz"
+  source          String?   // Where purchased/obtained
+  purchaseDate    DateTime? @map("purchase_date")
+  expirationDate  DateTime? @map("expiration_date")
+  notes           String?
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("seeds")
+}
+
+model SoilProfile {
+  id            String   @id @default(uuid())
+  scopeType     String   @map("scope_type")     // "garden" | "bed"
+  scopeId       String   @map("scope_id")
+  soilType      String?  @map("soil_type")      // "Loam" | "Clay" | "Sandy" | "Silt" | "Peaty" | "Chalky"
+  texture       String?                          // Detailed texture: "sandy loam", "clay loam"
+  drainage      String?                          // "poor" | "average" | "well"
+  ph            Float?                           // pH value
+  organicMatter Float?   @map("organic_matter") // Percentage
+  notes         String?
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  
+  tests  SoilTest[]
+  events SoilEvent[]
+
+  @@unique([scopeType, scopeId])
+  @@index([scopeType, scopeId])
+  @@map("soil_profiles")
+}
+
+model SoilTest {
+  id            String   @id @default(uuid())
+  profileId     String   @map("profile_id")
+  scopeType     String   @map("scope_type")     // "garden" | "bed"
+  scopeId       String   @map("scope_id")
+  testDate      DateTime @map("test_date")
+  ph            Float?
+  nitrogen      Float?                           // N value (optional)
+  phosphorus    Float?                           // P value (optional)
+  potassium     Float?                           // K value (optional)
+  moisture      Float?                           // Moisture percentage (optional)
+  salinity      Float?                           // Salinity level (optional)
+  source        String   @default("manual")      // "manual" | "kit" | "lab" | "sensor"
+  notes         String?
+  createdAt     DateTime @default(now()) @map("created_at")
+  
+  profile SoilProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId, testDate])
+  @@index([scopeType, scopeId])
+  @@map("soil_tests")
+}
+
+model SoilEvent {
+  id         String   @id @default(uuid())
+  profileId  String   @map("profile_id")
+  scopeType  String   @map("scope_type")     // "garden" | "bed"
+  scopeId    String   @map("scope_id")
+  eventType  String   @map("event_type")     // "amendment" | "compost" | "mulch" | "lime" | "sulfur" | "fertilizer"
+  amount     String                          // Human readable: "2 cups", "5 lbs", "1 inch layer"
+  eventDate  DateTime @map("event_date")
+  notes      String?
+  createdAt  DateTime @default(now()) @map("created_at")
+  
+  profile SoilProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId, eventDate])
+  @@index([scopeType, scopeId])
+  @@map("soil_events")
+}
+
+model PasswordReset {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  used      Boolean  @default(false)
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
+  @@map("password_resets")
+}

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terra Plantari Icon Preview</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #f0fdf4 0%, #faf5ff 100%);
+      padding: 3rem;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: #22C55E;
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+    }
+    
+    .subtitle {
+      color: #6b7280;
+      margin-bottom: 3rem;
+      font-size: 1.125rem;
+    }
+    
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .icon-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .icon-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    
+    .icon-display {
+      margin: 1.5rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+    }
+    
+    .icon-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .icon-description {
+      color: #6b7280;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+    
+    .color-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin: 0.25rem;
+    }
+    
+    .badge-green { background: #d1fae5; color: #065f46; }
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+    .badge-purple { background: #ede9fe; color: #5b21b6; }
+    
+    .size-demo {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .size-demo h2 {
+      color: #374151;
+      margin-bottom: 1.5rem;
+    }
+    
+    .size-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .size-item {
+      text-align: center;
+    }
+    
+    .size-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌱 Terra Plantari Icon System</h1>
+    <p class="subtitle">Custom SVG icons for the Gardens overview card</p>
+    
+    <div class="icon-grid">
+      <!-- Garden Icon -->
+      <div class="icon-card">
+        <div class="icon-title" style="color: #22C55E;">Garden Icon</div>
+        <div class="icon-description">Represents a garden area or property</div>
+        <div class="icon-display">
+          <svg width="64" height="64" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 4L6 12V26C6 27.1046 6.89543 28 8 28H24C25.1046 28 26 27.1046 26 26V12L16 4Z" fill="url(#garden-gradient)" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 4L26 12H6L16 4Z" fill="#8B5CF6" fill-opacity="0.3"/>
+            <rect x="13" y="19" width="6" height="9" rx="1" fill="white" fill-opacity="0.5"/>
+            <circle cx="11" cy="16" r="2" fill="white" fill-opacity="0.6"/>
+            <circle cx="21" cy="16" r="2" fill="white" fill-opacity="0.6"/>
+            <path d="M4 28C4 26 5 24 7 23C8 22.5 9 23 9 24V28" fill="#22C55E" fill-opacity="0.8"/>
+            <path d="M28 28C28 26 27 24 25 23C24 22.5 23 23 23 24V28" fill="#22C55E" fill-opacity="0.8"/>
+            <defs>
+              <linearGradient id="garden-gradient" x1="6" y1="4" x2="26" y2="28">
+                <stop offset="0%" stop-color="#22C55E" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.15"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <span class="color-badge badge-green">#22C55E</span>
+          <span class="color-badge badge-purple">#8B5CF6</span>
+        </div>
+      </div>
+
+      <!-- Bed Icon -->
+      <div class="icon-card">
+        <div class="icon-title" style="color: #3b82f6;">Bed Icon</div>
+        <div class="icon-description">Represents raised beds or planting rows</div>
+        <div class="icon-display">
+          <svg width="64" height="64" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="10" width="24" height="16" rx="2" fill="url(#bed-gradient)" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 24L4 28L28 28L28 24" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(139, 92, 246, 0.1)"/>
+            <line x1="8" y1="14" x2="24" y2="14" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+            <line x1="8" y1="18" x2="24" y2="18" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+            <line x1="8" y1="22" x2="24" y2="22" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+            <rect x="4" y="8" width="2" height="6" rx="1" fill="#8B5CF6" fill-opacity="0.6"/>
+            <rect x="26" y="8" width="2" height="6" rx="1" fill="#8B5CF6" fill-opacity="0.6"/>
+            <circle cx="10" cy="15" r="1.5" fill="#22C55E" fill-opacity="0.8"/>
+            <circle cx="16" cy="19" r="1.5" fill="#22C55E" fill-opacity="0.8"/>
+            <circle cx="22" cy="15" r="1.5" fill="#22C55E" fill-opacity="0.8"/>
+            <defs>
+              <linearGradient id="bed-gradient" x1="4" y1="10" x2="28" y2="26">
+                <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.1"/>
+                <stop offset="100%" stop-color="#22C55E" stop-opacity="0.15"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <span class="color-badge badge-blue">#3B82F6</span>
+          <span class="color-badge badge-green">#22C55E</span>
+        </div>
+      </div>
+
+      <!-- Planting Icon -->
+      <div class="icon-card">
+        <div class="icon-title" style="color: #8b5cf6;">Planting Icon</div>
+        <div class="icon-description">Represents active plantings (with pulse animation)</div>
+        <div class="icon-display">
+          <svg width="64" height="64" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="animation: pulse 3s ease-in-out infinite;">
+            <ellipse cx="16" cy="24" rx="10" ry="3" fill="#8B5CF6" fill-opacity="0.2"/>
+            <path d="M16 24V14" stroke="#22C55E" stroke-width="2" stroke-linecap="round"/>
+            <path d="M16 18C16 18 12 16 10 14C8 12 8 10 10 10C12 10 14 12 16 14" fill="url(#planting-gradient-left)" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 18C16 18 20 16 22 14C24 12 24 10 22 10C20 10 18 12 16 14" fill="url(#planting-gradient-right)" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 14C16 14 13 12.5 11.5 11C10 9.5 10 8 11.5 8C13 8 14.5 9.5 16 11" fill="#22C55E" fill-opacity="0.6"/>
+            <path d="M16 14C16 14 19 12.5 20.5 11C22 9.5 22 8 20.5 8C19 8 17.5 9.5 16 11" fill="#22C55E" fill-opacity="0.6"/>
+            <path d="M16 10C16 10 14.5 8.5 14 7C13.5 5.5 14 4 15 4.5C16 5 16 6.5 16 8" fill="#8B5CF6" fill-opacity="0.4"/>
+            <path d="M16 10C16 10 17.5 8.5 18 7C18.5 5.5 18 4 17 4.5C16 5 16 6.5 16 8" fill="#8B5CF6" fill-opacity="0.4"/>
+            <circle cx="16" cy="8" r="2.5" fill="#22C55E" fill-opacity="0.8"/>
+            <defs>
+              <linearGradient id="planting-gradient-left" x1="10" y1="10" x2="16" y2="18">
+                <stop offset="0%" stop-color="#22C55E" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#22C55E" stop-opacity="0.3"/>
+              </linearGradient>
+              <linearGradient id="planting-gradient-right" x1="22" y1="10" x2="16" y2="18">
+                <stop offset="0%" stop-color="#22C55E" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#22C55E" stop-opacity="0.3"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <span class="color-badge badge-purple">#8B5CF6</span>
+          <span class="color-badge badge-green">#22C55E</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Size Variations -->
+    <div class="size-demo">
+      <h2>Size Variations (Scalable SVG)</h2>
+      
+      <div class="size-row">
+        <div class="size-item">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 4L6 12V26C6 27.1046 6.89543 28 8 28H24C25.1046 28 26 27.1046 26 26V12L16 4Z" fill="url(#g1)" stroke="#22C55E" stroke-width="1.5"/>
+            <defs><linearGradient id="g1" x1="6" y1="4" x2="26" y2="28"><stop offset="0%" stop-color="#22C55E" stop-opacity="0.2"/><stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.15"/></linearGradient></defs>
+          </svg>
+          <div class="size-label">24px</div>
+        </div>
+        
+        <div class="size-item">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 4L6 12V26C6 27.1046 6.89543 28 8 28H24C25.1046 28 26 27.1046 26 26V12L16 4Z" fill="url(#g2)" stroke="#22C55E" stroke-width="1.5"/>
+            <defs><linearGradient id="g2" x1="6" y1="4" x2="26" y2="28"><stop offset="0%" stop-color="#22C55E" stop-opacity="0.2"/><stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.15"/></linearGradient></defs>
+          </svg>
+          <div class="size-label">32px (Default)</div>
+        </div>
+        
+        <div class="size-item">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 4L6 12V26C6 27.1046 6.89543 28 8 28H24C25.1046 28 26 27.1046 26 26V12L16 4Z" fill="url(#g3)" stroke="#22C55E" stroke-width="1.5"/>
+            <defs><linearGradient id="g3" x1="6" y1="4" x2="26" y2="28"><stop offset="0%" stop-color="#22C55E" stop-opacity="0.2"/><stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.15"/></linearGradient></defs>
+          </svg>
+          <div class="size-label">48px</div>
+        </div>
+        
+        <div class="size-item">
+          <svg width="64" height="64" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 4L6 12V26C6 27.1046 6.89543 28 8 28H24C25.1046 28 26 27.1046 26 26V12L16 4Z" fill="url(#g4)" stroke="#22C55E" stroke-width="1.5"/>
+            <defs><linearGradient id="g4" x1="6" y1="4" x2="26" y2="28"><stop offset="0%" stop-color="#22C55E" stop-opacity="0.2"/><stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.15"/></linearGradient></defs>
+          </svg>
+          <div class="size-label">64px (Header)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.02); }
+    }
+  </style>
+</body>
+</html>

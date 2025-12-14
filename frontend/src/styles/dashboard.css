@@ -1,0 +1,309 @@
+/* Dashboard Background Configuration */
+:root {
+  /* Legacy variable - now using tp-paper background */
+  --dashboard-bg-url: none;
+}
+
+/* Dashboard Container - Now handled by tp-paper class */
+.dashboard-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Remove old gradient overlay */
+.dashboard-container::before {
+  display: none;
+}
+
+/* Dashboard Content */
+.dashboard-content,
+.tp-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Dashboard Section Headers */
+.dashboard-section {
+  margin: 2.5rem auto 1rem;
+  max-width: 1400px;
+  padding: 0 1rem;
+}
+
+.dashboard-section h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid #8b5cf6;
+  display: inline-block;
+}
+
+.dashboard-section:first-of-type {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Dashboard Grid Responsive */
+.dashboard-grid {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding: 1rem !important;
+  }
+
+  .dashboard-container {
+    background-attachment: scroll;
+  }
+
+  .dashboard-section {
+    padding: 0 0.5rem;
+    margin: 2rem auto 0.75rem;
+  }
+
+  .dashboard-section h2 {
+    font-size: 1.35rem;
+  }
+}
+
+/* Card Hover Effects */
+.dashboard-card {
+  will-change: transform, box-shadow;
+}
+
+.dashboard-card:active {
+  transform: translateY(-2px) !important;
+}
+
+/* Touch Targets (Mobile) */
+@media (max-width: 768px) {
+  .dashboard-card button {
+    min-height: 44px;
+    width: 100%;
+  }
+
+  .dashboard-card a > button {
+    width: 100%;
+  }
+}
+
+/* Parallax Effect (Desktop Only) */
+@media (min-width: 769px) {
+  .dashboard-container {
+    background-attachment: fixed;
+  }
+}
+
+/* Loading State */
+.dashboard-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F7F2E8; /* Paper background instead of purple */
+  color: #8b5cf6; /* Purple text */
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Alert Banner Styling */
+.dashboard-alert {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth Scroll for Forecast Jump */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Glass Morphism Enhancement */
+@supports ((-webkit-backdrop-filter: blur(12px)) or (backdrop-filter: blur(12px))) {
+  .dashboard-card[data-glass="true"] {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+/* Full-width cards on mobile */
+@media (max-width: 768px) {
+  .dashboard-card {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Performance optimization */
+.dashboard-card {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Header spacing for dashboard */
+.dashboard-header {
+  position: relative;
+  z-index: 10;
+  padding: 2rem 1rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dashboard-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 0;
+}
+
+.dashboard-subtitle {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0.5rem 0 0;
+}
+
+/* Action buttons in header */
+.dashboard-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-actions {
+    flex-direction: column;
+  }
+
+  .dashboard-actions button {
+    width: 100%;
+  }
+}
+
+/* Soil Snapshot Card Styles */
+.soil-intelligence-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+  border: 2px solid #d1fae5;
+}
+
+.soil-snapshot-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.soil-score-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.soil-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.soil-warnings {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.875rem;
+  background: #fef3c7;
+  border-left: 3px solid #f59e0b;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.soil-warnings .warning-icon {
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+.soil-warnings .warning-text {
+  flex: 1;
+  color: #92400e;
+  font-weight: 500;
+}
+
+.warning-icon {
+  font-size: 1.25rem;
+}
+
+.warning-text {
+  font-size: 0.875rem;
+  color: #E65100;
+  flex: 1;
+}
+
+.profile-count {
+  font-size: 0.875rem;
+  color: #666;
+  background: #F5F5F5;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+}
+
+.empty-subtitle {
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 1rem;
+}
+
+.card-link {
+  display: inline-block;
+  color: #8B5CF6;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.card-link:hover {
+  color: #7C3AED;
+  text-decoration: underline;
+}

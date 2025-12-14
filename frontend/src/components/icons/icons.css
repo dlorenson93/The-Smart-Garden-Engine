@@ -1,0 +1,45 @@
+/* Garden Icons - Clean Outline Styles */
+
+.garden-icon,
+.bed-icon,
+.planting-icon {
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.garden-icon:hover,
+.bed-icon:hover,
+.planting-icon:hover {
+  transform: scale(1.05);
+}
+
+.garden-icon:focus-visible,
+.bed-icon:focus-visible,
+.planting-icon:focus-visible {
+  outline: 2px solid var(--color-primary, #22C55E);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Stat card - no extra transforms needed */
+.stat-card {
+  transition: transform 0.2s ease;
+}
+
+/* Remove pulse animation - icons should be static */
+
+/* Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .garden-icon,
+  .bed-icon,
+  .planting-icon,
+  .stat-card {
+    transition: none;
+  }
+  
+  .garden-icon:hover,
+  .bed-icon:hover,
+  .planting-icon:hover {
+    transform: none;
+  }
+}

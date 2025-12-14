@@ -1,0 +1,28 @@
+{
+  "name": "terra-plantari",
+  "version": "1.0.0",
+  "description": "MVP for Terra Plantari - A standalone garden and micro-farm planning application",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "backend": "npm run dev --workspace=backend",
+    "frontend": "npm run dev --workspace=frontend",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "setup": "npm install && npm run prisma:generate --workspace=backend",
+    "db:migrate": "npm run prisma:migrate --workspace=backend",
+    "db:seed": "npm run seed --workspace=backend",
+    "db:generate": "npm run prisma:generate --workspace=backend",
+    "db:update": "npm run db:update --workspace=backend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@capacitor/cli": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/ios": "^8.0.0"
+  }
+}
