@@ -81,8 +81,20 @@ router.post('/ask', authenticate, asyncHandler(async (req: AuthRequest, res: Res
       }
     }
 
+    console.log('[AI Assistant] Incoming /ask request:', {
+      userId,
+      question,
+      gardenId,
+      plantingId,
+      scope_type,
+      scope_id
+    });
+
     // Generate AI response based on question keywords
     const response = generateResponse(question, context);
+
+    console.log('[AI Assistant] Generated response:', response);
+    console.log('[AI Assistant] Context used:', context);
 
     // Save conversation to database with scope
     const chat = await prisma.aIChat.create({

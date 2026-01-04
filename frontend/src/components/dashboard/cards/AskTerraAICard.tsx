@@ -36,10 +36,12 @@ export default function AskTerraAICard({
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingHistory, setLoadingHistory] = useState(true);
+  const [error, setError] = useState('');
   const chatEndRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const API_URL = import.meta.env.VITE_API_URL || '/api/v1';
+  // Use relative path so Vite proxy works in dev, and avoid double /api/v1
+  const API_URL = '/api/v1';
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -77,6 +79,7 @@ export default function AskTerraAICard({
     if (!questionText.trim()) return;
 
     setLoading(true);
+    setError('');
 
     try {
       const token = localStorage.getItem('token');
@@ -94,8 +97,11 @@ export default function AskTerraAICard({
 
       setChats([...chats, response.data]);
       setQuestion('');
+      setError('');
     } catch (err: any) {
       console.error('AI request failed:', err);
+      const errorMsg = err.response?.data?.error || err.message || 'Failed to get response. Please check your connection.';
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -287,6 +293,19 @@ export default function AskTerraAICard({
       )}
 
       {/* Input Form */}
+      {error && (
+        <div style={{
+          padding: 'var(--space-3)',
+          marginBottom: 'var(--space-3)',
+          backgroundColor: '#fee2e2',
+          color: '#dc2626',
+          borderRadius: 'var(--radius-md)',
+          fontSize: '0.875rem',
+          border: '1px solid #fecaca'
+        }}>
+          {error}
+        </div>
+      )}
       <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '0.5rem' }}>
         <input
           type="text"

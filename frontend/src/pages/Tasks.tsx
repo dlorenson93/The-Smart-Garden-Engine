@@ -14,22 +14,6 @@ export default function Tasks() {
   const [tasks, setTasks] = useState<any[]>([]);
   const [scope, setScope] = useState<'today' | 'upcoming' | 'completed' | 'all'>('today');
   const [loading, setLoading] = useState(true);
-  const [showQuickAdd, setShowQuickAdd] = useState(false);
-
-  // Check for prefilled task from URL params
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const prefill = params.get('prefill');
-    const desc = params.get('desc');
-    
-    if (prefill) {
-      setShowQuickAdd(true);
-      // Store prefill data for form (would need to be implemented in the form component)
-      sessionStorage.setItem('taskPrefill', JSON.stringify({ title: prefill, description: desc }));
-      // Clear URL params
-      window.history.replaceState({}, '', window.location.pathname);
-    }
-  }, []);
 
   useEffect(() => {
     loadTasks();
@@ -69,7 +53,7 @@ export default function Tasks() {
           description: 'All caught up! Want to add a task or get AI recommendations?',
           primaryAction: {
             label: 'Add Task',
-            onClick: () => setShowQuickAdd(true)
+            onClick: () => navigate('/gardens')
           },
           secondaryAction: {
             label: 'Ask AI Assistant',
@@ -83,7 +67,7 @@ export default function Tasks() {
           description: 'You don\'t have any tasks scheduled for the future yet.',
           primaryAction: {
             label: 'Add Task',
-            onClick: () => setShowQuickAdd(true)
+            onClick: () => navigate('/gardens')
           }
         };
       case 'completed':
@@ -103,7 +87,7 @@ export default function Tasks() {
           description: 'Start by creating tasks for your plantings to stay organized.',
           primaryAction: {
             label: 'Add First Task',
-            onClick: () => setShowQuickAdd(true)
+            onClick: () => navigate('/gardens')
           },
           secondaryAction: {
             label: 'Go to Gardens',
@@ -130,9 +114,9 @@ export default function Tasks() {
           <Button
             variant="primary"
             leftIcon="+"
-            onClick={() => setShowQuickAdd(true)}
+            onClick={() => navigate('/gardens')}
           >
-            Quick Add
+            Add Task
           </Button>
         }
       />

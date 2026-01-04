@@ -47,5 +47,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>TerraPlantari needs access to your photo library to save and view photos of your plants and garden progress.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>TerraPlantari needs permission to save photos of your plants and garden to your photo library.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>TerraPlantari needs camera access to take photos of your plants and track garden progress.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>TerraPlantari uses your location to provide accurate climate zone, frost dates, and weather information for your garden.</string>
 </dict>
 </plist>

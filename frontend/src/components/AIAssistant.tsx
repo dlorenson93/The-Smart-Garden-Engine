@@ -35,7 +35,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ gardenId, plantingId }) => {
   const loadHistory = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/v1/ai/history?limit=10`, {
+      const response = await axios.get('/api/v1/ai/history?limit=10', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setChats(response.data.reverse());
@@ -54,7 +54,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ gardenId, plantingId }) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/v1/ai/ask`,
+        '/api/v1/ai/ask',
         { question, gardenId, plantingId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -62,7 +62,9 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ gardenId, plantingId }) => {
       setChats([...chats, response.data]);
       setQuestion('');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to get response');
+      console.error('AI Assistant Error:', err);
+      const errorMsg = err.response?.data?.error || err.message || 'Failed to get response. Please check your connection and try again.';
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }

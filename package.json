@@ -15,7 +15,11 @@
     "db:migrate": "npm run prisma:migrate --workspace=backend",
     "db:seed": "npm run seed --workspace=backend",
     "db:generate": "npm run prisma:generate --workspace=backend",
-    "db:update": "npm run db:update --workspace=backend"
+    "db:update": "npm run db:update --workspace=backend",
+    "ios:build": "npm run build --workspace=frontend && npx cap sync ios",
+    "ios:open": "npx cap open ios",
+    "ios:run": "npx cap run ios",
+    "ios:deploy": "npm run ios:build && npm run ios:open"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
